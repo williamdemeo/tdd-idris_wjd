@@ -65,8 +65,11 @@ palindrome_nat n str = (length str) > n && str == reverse str
          (3, 19) : (Nat, Nat)
 --}
 
-{-- 7. Write a top_ten function of type Ord a => List a -> List a that returns the ten 
-       largest values in a list. You may find the following Prelude functions useful:
+counts : String -> (Nat, Nat)
+counts str = (length (words str), length str)
+
+{-- 7. Write a `top_ten` function of type `Ord a => List a -> List a` that returns the 
+       ten largest values in a list. You may find the following Prelude functions useful:
          take : Nat -> List a -> List a
          sort : Ord a => List a -> List a
        Use :doc for further information about these functions if you need it.
@@ -75,12 +78,18 @@ palindrome_nat n str = (length str) > n && str == reverse str
          [100, 99, 98, 97, 96, 95, 94, 93, 92, 91] : List Integer
 --}
 
+top_ten : Ord a => List a -> List a
+top_ten as = take 10 (reverse (sort as))
+
 {-- 8. Write an over_length function of type Nat -> List String -> Nat that returns the
        number of strings in the list longer than the given number of characters.
        You can test your answer at the REPL as follows:
          *ex_2> over_length 3 ["One", "Two", "Three", "Four"]
          2 : Nat
 --}
+
+over_length : Nat -> List String -> Nat
+over_length n xs = length (filter ( > n) (map length xs))
 
 {-- 9. For each of palindrome and counts , write a complete program that prompts for an
        input, calls the function, and prints its output.
@@ -92,3 +101,4 @@ palindrome_nat n str = (length str) > n && str == reverse str
          False
          Enter a string:
 --}
+
