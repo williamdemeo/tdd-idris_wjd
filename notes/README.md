@@ -1,3 +1,10 @@
+# notes
+
+## Atom editor
+
+
+### Interactive Editing Commands
+
 | Shortcut | Command | Description |
 | -------- | ------- | ----------- |
 | Ctrl-Alt-A | Add definition | Adds a skeleton definition for the name under the cursor |
