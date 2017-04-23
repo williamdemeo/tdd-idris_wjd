@@ -40,3 +40,86 @@ The most common are listed here.
 | `Ctrl-Alt-R` | Reload | Reloads and type-checks the current buffer |
 | `Ctrl-Alt-S` | Search | Searches for an expression that satisfies the type of the hole name under the cursor |
 | `Ctrl-Alt-T` | Type-check name | Displays the type of the name under the cursor |
+
+
+### Example
+
+Here is an example Atom session showing the typical steps we might take to 
+enlist Idris' help in constructing a function.
+
+1. *Define.*  
+   First, give the type signature of the function you want:
+
+        my_length : List a -> Nat
+
+2. **[A]dd definition skeleton.**  
+   Next, put the cursor over `my_length` and type `C-Alt-A` 
+   to **[A]dd definition** code for the function.  The result is:
+
+        my_length : List a -> Nat
+		my_length xs = ?my_length_rhs
+
+   The expression `?my_length_rhs` is called a hole. We have to fill it in
+   with an appropriate function definition.
+   
+3. **[T]ype check holes.**  
+   We can check the type of the hole with `C-Alt-T`.
+   The result is not all that exciting or surprising.
+
+		a : Type
+        xs : List a
+        --------------------------------------
+		my_length_rhs : Nat
+
+4. **[C]ase-split inputs.**  
+   The function `my_length` will be defined based on a case-analysis, 
+   depeding on the structure of the input list `xs`.
+   Each case we must handle corresponds to a particular constructor for 
+   lists of type `List a`.  We can ask Idris to layout all the cases for us by
+   moving the cursor over `xs` and typing `C-Alt-C` (for **[C]ase-split**).
+   The result looks like this:
+   
+		my_length : List a -> Nat
+		my_length [] = ?my_length_rhs_1
+		my_length (x :: xs) = ?my_length_rhs_2
+		
+5. **[S]earch for appropriate terms.**   
+   Next, we can ask Idris to search for an expression of a type that fits into the hole
+   at `?my_length_rhs_1`.  In Atom, we do this with the cursor over the hole and the
+   keystrokes `C-Alt-S` (for **[S]earch**). The result is
+   
+		my_length : List a -> Nat
+		my_length [] = 0
+		my_length (x :: xs) = ?my_length_rhs_2
+		
+   How did Idris get this right?
+   Well, we need a `Nat` in the hole, and `0` is the first `Nat`.
+   But this was dumb luck.  
+   
+   If we try `C-Alt-S` at the second hole `?my_length_rhs_2`, we get the same (wrong) result.
+
+		my_length : List a -> Nat
+		my_length [] = 0
+		my_length (x :: xs) = 0
+		
+6. *Define.* We fill in the correct defition:
+		
+		my_length : List a -> Nat
+		my_length [] = 0
+		my_length (x :: xs) = 1 + my_length xs
+		
+7. *Type check the program*  
+   Launch the Idris REPL and pass in the name of the file containing our `my_length` function.
+   
+		idris ex_3_2.idr
+		
+   If there are problems, fix them and then reload the file at the REPL prompt as follows:
+   
+		*ex_3_2> :r
+
+**List of key-bindings used in the example above**
+
+	Ctrl-Alt-A (Add a skeleton def)
+    Ctrl-Alt-C (Case split, based on constructors)
+    Ctrl-Alt-T (check Type)
+    Ctrl-Alt-S (search)
