@@ -1,6 +1,6 @@
 import Data.Vect
 
-{-- 1.
+{-- 1. test
   Reimplement transposeMat using zipWith instead of transposeHelper.
   You can test your answer at the REPL as follows:
   *ex_3_3_3> transposeMat [[1,2], [3,4], [5,6]]
