@@ -12,7 +12,7 @@
 {-- 2. Write a palindrome function, of type String -> Bool, that returns whether the
        input reads the same backwards as forwards.
        Hint: You may find the function reverse : String -> String useful.
-       You can test your answer at the REPL as follows: 
+       You can test your answer at the REPL as follows:
          *ex_2> palindrome "racecar"
          True : Bool
          *ex_2> palindrome "race car"
@@ -26,9 +26,9 @@ palindrome str = (str == reverse str)
         Hint: You may find toLower : String -> String useful.
         You can test your answer at the REPL as follows:
           *ex_2> palindrome "Racecar"
-          True : Bool 
+          True : Bool
 --}
-        
+
 palindrome_nonsen : String -> Bool
 palindrome_nonsen str = (toLower str == toLower (reverse str))
 
@@ -53,11 +53,11 @@ palindrome_10 str = (length str) > 10 && str == reverse str
        *ex_2> palindrome 5 "racecar"
        True : Bool
 --}
-       
+
 palindrome_nat : Nat -> String -> Bool
 palindrome_nat n str = (length str) > n && str == reverse str
-       
-       
+
+
 {-- 6. Write a counts function of type String -> (Nat, Nat) that returns a pair of the
        number of words in the input and the number of characters in the input.
        You can test your answer at the REPL as follows:
@@ -68,7 +68,7 @@ palindrome_nat n str = (length str) > n && str == reverse str
 counts : String -> (Nat, Nat)
 counts str = (length (words str), length str)
 
-{-- 7. Write a `top_ten` function of type `Ord a => List a -> List a` that returns the 
+{-- 7. Write a `top_ten` function of type `Ord a => List a -> List a` that returns the
        ten largest values in a list. You may find the following Prelude functions useful:
          take : Nat -> List a -> List a
          sort : Ord a => List a -> List a
@@ -101,4 +101,3 @@ over_length n xs = length (filter ( > n) (map length xs))
          False
          Enter a string:
 --}
-
