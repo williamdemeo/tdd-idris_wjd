@@ -45,11 +45,25 @@ addMatrix (x :: xs) (y :: ys) = (zipWith (+) x y) :: addMatrix xs ys
   *ex_3_3_3> multMatrix [[1,2], [3,4], [5,6]] [[7,8,9,10], [11,12,13,14]]
 --}
 
-multMatrix_helper : Num numType => Vect n (Vect m numType) ->
-                                   Vect p (Vect m numType) ->
-                                   Vect n (Vect p numType)
+{-- Haven't yet got this working... for now, see Brady's solution. --}
+{--
+  scalar_mult : Num numType => {m: Nat} -> numType -> Vect m numType -> Vect m numType
+  scalar_mult a [] = []
+  scalar_mult a (x :: xs) = a*x :: scalar_mult a xs
 
-multMatrix : Num numType =>
-             Vect n (Vect m numType) -> Vect m (Vect p numType) ->
-             Vect n (Vect p numType)
-multMatrix xs ys = multMatrix_helper xs (my_transposeMat ys)
+  lin_comb_rows_aux : Num numType => {m: Nat} -> {p: Nat} ->
+                      Vect m numType -> Vect p (Vect m numType) ->
+                      Vect p numType -> Vect p numType
+  lin_comb_rows_aux [] [] acc = acc
+  lin_comb_rows_aux (x :: xs) (y :: ys) acc = lin_comb_rows_aux xs ys (addMatrix acc (scalar_mult x y))
+  --let new_acc = (addMatrix acc (scalar_mult x y)) in
+  --(lin_comb_rows_aux xs ys new_acc)
+
+  lin_comb_rows : Num numType => {m: Nat} -> {p: Nat} ->
+                  Vect m numType -> Vect m (Vect p numType) -> Vect p numType
+  lin_comb_rows x y = let acc = Data.Vect.replicate _ 0 in lin_comb_rows_aux x (my_transposeMat y) acc
+
+  mult_matrix : Num numType => {n: Nat} -> {m: Nat} -> {p: Nat} ->
+                Vect n (Vect m numType) -> Vect m (Vect p numType) ->
+                Vect n (Vect p numType)
+  --}
