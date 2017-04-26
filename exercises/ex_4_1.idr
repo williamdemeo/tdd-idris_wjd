@@ -1,5 +1,5 @@
+import Picture
 import BSTree
-
 {-- 1.
   Write a function, `listToTree : Ord a => List a -> Tree a`
   that inserts every element of a list into a binary search tree.
@@ -79,14 +79,20 @@ evaluate (Sub x y) = (evaluate x) - (evaluate y)
 evaluate (Mul x y) = (evaluate x) * (evaluate y)
 
 {-- 5
-  Write a function, maxMaybe : Ord a => Maybe a -> Maybe a -> Maybe a , that
-  returns the larger of the two inputs, or Nothing if both inputs are Nothing .
+  Write a function `maxMaybe : Ord a => Maybe a -> Maybe a -> Maybe a` that
+  returns the larger of the two inputs, or Nothing if both inputs are Nothing.
   For example:
       *ex_4_1> maxMaybe (Just 4) (Just 5)
       Just 5 : Maybe Integer
       *ex_4_1> maxMaybe (Just 4) Nothing
       Just 4 : Maybe Integer
 --}
+
+maxMaybe : Ord a => Maybe a -> Maybe a -> Maybe a
+maxMaybe Nothing Nothing = Nothing
+maxMaybe Nothing (Just y) = Just y
+maxMaybe (Just x) Nothing = Just x
+maxMaybe (Just x) (Just y) = Just (max x y)
 
 {-- 6
   Write a function, biggestTriangle : Picture -> Maybe Double , that returns
@@ -103,4 +109,24 @@ evaluate (Mul x y) = (evaluate x) * (evaluate y)
       Just 4.0 : Maybe Double
       *ex_4_1> biggestTriangle testPic2
       Nothing : Maybe Double
+--}
+bigTri_aux : Picture -> Maybe Double -> Maybe Double
+bigTri_aux (Primitive (Triangle b h)) myMax = maxMaybe (Just (area (Triangle b h))) myMax
+bigTri_aux (Primitive (Rectangle l h)) myMax = myMax
+bigTri_aux (Primitive (Circle r)) myMax = myMax
+bigTri_aux (Combine left right) myMax =
+  maxMaybe (bigTri_aux left myMax) (bigTri_aux right myMax)
+bigTri_aux (Rotate r pic) myMax = bigTri_aux pic myMax
+bigTri_aux (Translate x y pic) myMax = bigTri_aux pic myMax
+
+biggestTriangle : Picture -> Maybe Double
+biggestTriangle pic = bigTri_aux pic Nothing
+
+testPic1 : Picture
+testPic1 = Combine (Primitive (Triangle 2 3))
+                   (Primitive (Triangle 2 4))
+testPic2 : Picture
+testPic2 = Combine (Primitive (Rectangle 1 3))
+                   (Primitive (Circle 4))
+
 {-- --}
