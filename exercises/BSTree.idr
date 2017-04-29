@@ -7,9 +7,9 @@ data BSTree : Type -> Type where
                         (right : BSTree elem) -> BSTree elem
 
 public export
-insert : elem -> BSTree elem -> BSTree elem
+insert : Ord elem => elem -> BSTree elem -> BSTree elem
 insert x Empty = Node Empty x Empty
-insert x this@ (Node treel e treer) = case compare x e of
+insert x this@(Node treel e treer) = case compare x e of
           LT => Node (insert x treel) e treer
           EQ => this
           GT => Node treel e (insert x treer)
