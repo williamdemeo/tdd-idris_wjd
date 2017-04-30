@@ -1,9 +1,11 @@
 import Vehicle
-import Vect
+-- import Vect
+import Data.Vect
 {-- Exercises --}
 {-- 1 --}
 {-- Extend the Vehicle data type so that it supports unicycles and motorcycles,
     and update wheels and refuel accordingly.
+    (done)
     Solution: In the Vehicle.idr file,
     + added to `data Vehicle`
          Motorcycle : (fuel : Nat) -> Vehicle Petrol
@@ -19,7 +21,7 @@ import Vect
 {-- 2 --}
 {-- Extend the PowerSource and Vehicle data types to support electric
     vehicles (such as trams or electric cars).
-    Solution: Added Electric. Added Ecar, Tram.
+    (done)  (added Electric and Ecar and Tram)
     --}
 
 {-- 3 --}
@@ -29,8 +31,14 @@ import Vect
     It shouldn't be valid to take more elements than there are in the
     `Vect`. Also, remember that you can have any expression in a type.
     Solution:
-    vectTake : Vect n elem -> (m : Int) -> Maybe Vect m elem
 --}
+vectTake : (m : Nat) -> Vect n elem -> Maybe (Vect m elem)
+vectTake m [] = case m of
+                     Z => Just []
+                     (S k) => Nothing
+vectTake (S k) (x :: xs) = case (vectTake k xs) of
+                                Just v => Just (x :: v)
+                                Nothing => Nothing
 
 {-- 4 --}
 {-- Implement `vectTake`. If you've implemented it correctly, with the
