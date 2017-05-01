@@ -61,3 +61,19 @@ vectTake : (n : Nat) -> Vect (n + m) a -> Vect n a
 {-- Second try (works) --}
 vectTake Z xs = []
 vectTake (S k) (x :: xs) = x :: vectTake k xs
+
+{-- 5 --}
+{-- Write a sumEntries function with the following type:
+        sumEntries : Num a => (pos : Integer) -> Vect n a -> Vect n a -> Maybe a
+    It should return the sum of the entries at position pos in each of
+    the inputs if pos is within bounds, or Nothing otherwise.
+    For example:
+        *ex_4_2> sumEntries 2 [1,2,3,4] [5,6,7,8]
+        Just 10 : Maybe Integer
+        *ex_4_2> sumEntries 4 [1,2,3,4] [5,6,7,8]
+        Nothing : Maybe Integer
+    Hint: You'll need to call `integerToFin`, but only need to do it once.
+--}
+{-- SOLUTION --}
+sumEntries : Num a => (pos : Integer) -> Vect n a -> Vect n a -> Maybe a
+sumEntries p x y = ?sumEntries_rhs
