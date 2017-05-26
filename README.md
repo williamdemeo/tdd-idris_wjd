@@ -2,11 +2,18 @@
 
 Notes and Exercises from the book "Type-Driven Development with Idris" by Edwin Brady
 
+### References
+
++ [The book's web page](https://www.manning.com/books/type-driven-development-with-idris) (at Manning)
+
++ [Edwin Brady's Sample Idris code](https://github.com/edwinb/TypeDD-Samples) to accompany the book (on Github)
+
+### Installing Idris
+
 Following the instructions [here](https://github.com/idris-lang/Idris-dev/wiki/Idris-on-Ubuntu),
 installed Idris with the following commands:
 
     cabal update
-	cabal install idris
+    cabal install idris
 
 This took about 45 minutes to complete.
-	
