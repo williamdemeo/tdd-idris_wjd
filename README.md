@@ -21,4 +21,4 @@ This took about 45 minutes to complete.
 ### Typos/Errata
 
 + **p.113, Listing 4.16**
-  [rename items in last line of the code listing](https://forums.manning.com/posts/list/39480.page;jsessionid=B664BCF7FD319172030AB484EA89E384
+  [rename items in last line of the code listing](https://forums.manning.com/posts/list/39480.page;jsessionid=B664BCF7FD319172030AB484EA89E384)
