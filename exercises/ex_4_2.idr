@@ -34,9 +34,6 @@ import Data.Vect
 {-- SOLUTION --}
 {-- First try (doesn't work) --}
 --  vectTake : (m : Nat) -> Vect n elem -> Maybe (Vect m elem)
-{-- Second try (works) --}
-vectTake : (n : Nat) -> Vect (n + m) a -> Vect n a
-
 {-- 4 --}
 {-- Implement `vectTake`. If you've implemented it correctly, with the
     correct type, you can test your answer at the REPL as follows:
@@ -59,8 +56,13 @@ vectTake : (n : Nat) -> Vect (n + m) a -> Vect n a
 --                                   Just v => Just (x :: v)
 --                                   Nothing => Nothing
 {-- Second try (works) --}
+vectTake : (n : Nat) -> Vect (n + m) a -> Vect n a
 vectTake Z xs = []
 vectTake (S k) (x :: xs) = x :: vectTake k xs
+
+vectDrop : (n : Nat) -> Vect (n + m) a -> Vect m a
+vectDrop Z xs = xs
+vectDrop (S k) (x :: xs) = vectDrop k xs
 
 {-- 5 --}
 {-- Write a sumEntries function with the following type:
@@ -75,5 +77,22 @@ vectTake (S k) (x :: xs) = x :: vectTake k xs
     Hint: You'll need to call `integerToFin`, but only need to do it once.
 --}
 {-- SOLUTION --}
-sumEntries : Num a => (pos : Integer) -> Vect n a -> Vect n a -> Maybe a
-sumEntries p x y = ?sumEntries_rhs
+plusMaybe : Num a => Maybe a -> Maybe a -> Maybe a
+plusMaybe x y = case x of
+                Just vx => case y of
+                           Just vy => Just (vx + vy)
+                           Nothing => Nothing
+                Nothing => Nothing
+
+getHead : Vect n a -> Maybe a
+getHead [] = Nothing
+getHead (x :: xs) = Just x
+
+getEntry : (pos : Nat) -> Vect n a -> Maybe a
+getEntry _ [] = Nothing
+getEntry Z xs = getHead xs
+getEntry (S k) (x :: xs) = getEntry k xs
+
+sumEntries : Num a => (pos : Nat) -> Vect n a -> Vect m a -> Maybe a
+sumEntries Z xs ys = plusMaybe (getHead xs) (getHead ys)
+sumEntries pos xs ys = plusMaybe (getEntry pos xs) (getEntry pos ys)

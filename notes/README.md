@@ -49,12 +49,12 @@ The most common are listed here.
 Here is an example Atom session showing the typical steps we might take to
 enlist Idris' help in constructing a function.
 
-1. *Define.*  
+1. *Define.*
    First, give the type signature of the function you want:
 
         my_length : List a -> Nat
 
-2. **[A]dd definition skeleton.**  
+2. **[A]dd definition skeleton.**
    Next, put the cursor over `my_length` and type `C-Alt-A`
    to **[A]dd definition** code for the function.  The result is:
 
@@ -64,7 +64,7 @@ enlist Idris' help in constructing a function.
    The expression `?my_length_rhs` is called a hole. We have to fill it in
    with an appropriate function definition.
 
-3. **[T]ype check holes.**  
+3. **[T]ype check holes.**
    We can check the type of the hole with `C-Alt-T`.
    The result is not all that exciting or surprising.
 
@@ -73,7 +73,7 @@ enlist Idris' help in constructing a function.
         --------------------------------------
 		my_length_rhs : Nat
 
-4. **[C]ase-split inputs.**  
+4. **[C]ase-split inputs.**
    The function `my_length` will be defined based on a case-analysis,
    depeding on the structure of the input list `xs`.
    Each case we must handle corresponds to a particular constructor for
@@ -85,7 +85,7 @@ enlist Idris' help in constructing a function.
 		my_length [] = ?my_length_rhs_1
 		my_length (x :: xs) = ?my_length_rhs_2
 
-5. **[S]earch for appropriate terms.**   
+5. **[S]earch for appropriate terms.**
    Next, we can ask Idris to search for an expression of a type that fits into the hole
    at `?my_length_rhs_1`.  In Atom, we do this with the cursor over the hole and the
    keystrokes `C-Alt-S` (for **[S]earch**). The result is
@@ -96,7 +96,7 @@ enlist Idris' help in constructing a function.
 
    How did Idris get this right?
    Well, we need a `Nat` in the hole, and `0` is the first `Nat`.
-   But this was dumb luck.  
+   But this was dumb luck.
 
    If we try `C-Alt-S` at the second hole `?my_length_rhs_2`, we get the same (wrong) result.
 
@@ -112,7 +112,7 @@ enlist Idris' help in constructing a function.
 		my_length [] = 0
 		my_length (x :: xs) = 1 + my_length xs
 
-7. *Type check the program*  
+7. *Type check the program*
    Launch the Idris REPL and pass in the name of the file containing our
    `my_length` function.
 
@@ -149,6 +149,9 @@ The following are some of the atom packages installed.
 8. merge-conflicts
 9. minimap
 10. pdf-view
+11. markdown-preview-plus
+
+Note: you should disable the default markdown-preview package, and set the following options in the markdown-preview-plus mode:  github style, enable latex rendering
 
 To install a package, select the atom menus: Edit -> Preferences,
 select `+ Install` from the list on the left, search for
