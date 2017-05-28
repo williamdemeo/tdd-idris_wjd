@@ -8,6 +8,9 @@ Notes and Exercises from the book "Type-Driven Development with Idris" by Edwin 
 
 + [Edwin Brady's Sample Idris code](https://github.com/edwinb/TypeDD-Samples) to accompany the book (on Github)
 
++ [Videos from a short course by Edwin Brady](https://www.idris-lang.org/dependently-typed-functional-programming-with-idris-course-videos-and-slides/)
+
+
 ### Installing Idris
 
 Following the instructions [here](https://github.com/idris-lang/Idris-dev/wiki/Idris-on-Ubuntu),

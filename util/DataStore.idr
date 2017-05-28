@@ -23,21 +23,26 @@ addToStore (MkData size items) newitem = MkData _ (addToData items)
     addToData (item :: items') = item :: addToData items'
 
 
-data Command = add String | get Integer | quit
+data Command = Add String | Get Integer | Quit
+
+parseCommand : (comm : String) -> (newstr : String) -> Maybe Command
+parseCommand comm newstr = ?parseCommand_rhs
 
 parse : (input: String) -> Maybe Command
-parse input = let (comm, newstr) = span (/=" ") input in
-              case comm of 
-                add => Just (comm, newstr)
-                get => Just (comm, newstr)
-                _ => Nothing
+parse input = case span (/= ' ') input of
+                   (comm, newstr) => parseCommand comm (ltrim newstr)
+              -- case comm of
+              --   Add => Just (comm, newstr)
+              --   Get => Just (comm, newstr)
+              --   _ => Nothing
 
 processInput : DataStore -> String -> Maybe (String, DataStore)
 processInput mystore newstr
-  = if newstr == ""
-    then Nothing
-    else let newstore = (addToStore mystore newstr) in
-             Just("Added " ++ newstr ++ " to DataStore\n", newstore)
+  = case (parse newstr) of
+      Nothing => Just ("Invalid command\n", mystore)
+      Just cmd => ?processCommand
+      -- (addToStore mystore newstr) in
+      --                     Just("Added " ++ newstr ++ " to DataStore\n", newstore)
 
 -- Process input from command line
 main : IO ()
