@@ -46,13 +46,14 @@ addToStore (MkData size items) newitem = MkData _ (addToData items)
    addToData (item :: items') = item :: addToData items'
 
 
-data Command = Add String | Get Integer | Quit
+data Command = Add String | Get Integer | Search String | Quit
 
 parseCommand : (comm : String) -> (newstr : String) -> Maybe Command
 parseCommand "add" str = Just (Add str)
+parseCommand "search" str = Just (Search str)
 parseCommand "get" val = case all isDigit (unpack val) of
-                             False => Nothing
-                             True => Just (Get (cast val))
+                         False => Nothing
+                         True => Just (Get (cast val))
 parseCommand "quit" "" = Just Quit
 parseCommand _ _ = Nothing
 
@@ -67,31 +68,36 @@ getEntry pos mystore = let store_items = -- recall items is a function that
                            Nothing => Just("Out of range\n", mystore)
                            Just id => Just (index id store_items ++ "\n", mystore)
 
+{-- ex 2 --}
+{-- Add a search command that displays all the entries in the store containing
+    a given substring. Hint: Use `Strings.isInfixOf`. --}
+
+searchAux : DataStore -> String -> Integer -> String -> Maybe (String, DataStore)
+searchAux ds str n acc = case ds of
+    MkData _ [] => Just(acc, ds)
+    MkData _ (x :: xs) => if (isInfixOf str x)
+        then let new_acc = (acc ++ (cast n) ++ ": " ++ x ++ "\n") in
+             searchAux (MkData _ xs) str (n+1) new_acc
+        else searchAux (MkData _ xs) str (n+1) acc
+
+search : DataStore -> String -> Maybe (String, DataStore)
+search ds str = searchAux ds str 0 ""
+{-- ex 2 (done) --}
+
 processInput : DataStore -> String -> Maybe (String, DataStore)
 processInput mystore newstr
  = case (parse newstr) of
      Nothing => Just ("Invalid command\n", mystore)
      Just (Add item) =>
        Just("ID" ++ show (size mystore) ++ "\n", addToStore mystore item)
+     Just (Search item) => case (search mystore item) of
+                           Nothing => Just("string not found", mystore)
+                           Just(acc, ds) => Just(acc, mystore)
      Just (Get pos) => getEntry pos mystore
      Just Quit => Nothing
      -- (addToStore mystore newstr) in
      --                     Just("Added " ++ newstr ++ " to DataStore\n", newstore)
 
-{-- ex 2 --}
-{-- Add a search command that displays all the entries in the store containing
-    a given substring. Hint: Use `Strings.isInfixOf`. --}
-
-searchAux : DataStore -> String -> String -> Maybe (String, DataStore)
-searchAux ds str acc = case (items ds) of
-                    [] => Just(acc, ds)
-                    x :: xs => if (str.isInfixOf(x))
-                               then search (MkData ((size ds)-1) xs) str (acc ++ str ++ "\n")
-                               else search (MkData ((size ds)-1) xs) str acc
-
-search : DataStore -> String -> Maybe (String, DataStore)
-search ds str = searchAux ds str " "
-{-- ex 2 (done) --}
 
 
 -- Process input from command line
