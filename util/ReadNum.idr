@@ -1,3 +1,5 @@
+module ReadNum
+
 readNumber : IO (Maybe Nat)
 readNumber = do
   input <- getLine

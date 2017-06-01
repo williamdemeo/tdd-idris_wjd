@@ -1,6 +1,7 @@
 module Main
 
 import System
+import ReadNum
 
 countdown : (secs: Nat) -> IO ()
 countdown Z = putStrLn "Lift off!"
