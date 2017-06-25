@@ -3,7 +3,37 @@
 While learning Idris, I collected these notes about things that seemed useful,
 important, or otherwise worth remembering.
 
+## Brief Contents
+
+# PART 1 INTRODUCTION ................................................... 1
+## 1 Overview 3
+## 2 Getting started with Idris 25
+
+# PART 2 CORE IDRIS ......................................................53
+## 3 Interactive development with types 55
+## 4 User-defined data types 87
+## 5 Interactive programs: input and output processing 123
+## 6 Programming with first-class types 147
+## 7 Interfaces: using constrained generic types 182
+## 8 Equality: expressing relationships between data 208
+## 9 Predicates: expressing assumptions and contracts in types 236
+## 10 Views: extending pattern matching 258
+
+# Part 3 IDRIS AND THE REAL WORLD ......................................... 289
+## 11 Streams and processes: working with infinite data 291
+## 12 Writing programs with state 324
+## 13 State machines: verifying protocols in types 352
+## 14 Dependent state machines: handling feedback and errors
+## 15 Type-safe concurrent programming 403
+
+----------------------------------------------------------------------------------
+
+# 1 Overview 3
+
+# 2 Getting started with Idris 25
+
 ## REPL
+
 
 The Idris read-eval-print loop (REPL) provides several commands.
 The most common are listed here.
@@ -43,7 +73,12 @@ The most common are listed here.
 | `Ctrl-Alt-S` | Search | Searches for an expression that satisfies the type of the hole name under the cursor |
 | `Ctrl-Alt-T` | Type-check name | Displays the type of the name under the cursor |
 
-### Example
+
+------------------------------------------------------
+
+# 3 Interactive development with types 55
+
+## Example
 
 Here is an example Atom session showing the typical steps we might take to
 enlist Idris' help in constructing a function.
@@ -148,6 +183,7 @@ Ctrl-Alt-T (check Type)
 Ctrl-Alt-S (search)
 ```
 
+
 Another nice example of these commands appears on **pages 58** and **59** of TDDI.
 
 Two other very common useful commands are `Ctrl-Alt-D`, which displays 
@@ -161,17 +197,30 @@ unweildy and we would rather fill it with the result of a helper function.
 Brady describes this as "lifting the hole to a top-level definition."
 Another example of `CTRL-ALT-L` appears on **page 78**.
 
-### 3.4 Implicit arguments: type-level variables
+## 3.4 Implicit arguments: type-level variables
 **page 82** This is an important section. It concludes Chapter 3.
 
 --------------------------------------------------
 
 
-## Chapter 4 
 
 
+# 4 User-defined data types 87
+# 5 Interactive programs: input and output processing 123
+# 6 Programming with first-class types 147
+# 7 Interfaces: using constrained generic types 182
+# 8 Equality: expressing relationships between data 208
+# 9 Predicates: expressing assumptions and contracts in types 236
+# 10 Views: extending pattern matching 258
+
+# 11 Streams and processes: working with infinite data 291
+# 12 Writing programs with state 324
+# 13 State machines: verifying protocols in types 352
+# 14 Dependent state machines: handling feedback and errors
+# 15 Type-safe concurrent programming 403
 
 
+# MISCELLANEOUS
 
 
 ## Atom Notes
